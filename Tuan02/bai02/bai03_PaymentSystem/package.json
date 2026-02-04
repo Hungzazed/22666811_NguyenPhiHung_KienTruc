@@ -1,0 +1,12 @@
+{
+  "name": "payment-system-patterns",
+  "version": "1.0.0",
+  "description": "So sánh State, Strategy, Decorator Pattern trong hệ thống thanh toán",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": ["design-pattern", "state", "strategy", "decorator", "payment"],
+  "author": "",
+  "license": "ISC"
+}

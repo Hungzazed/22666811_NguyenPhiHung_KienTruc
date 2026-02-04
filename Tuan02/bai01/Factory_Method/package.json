@@ -1,0 +1,12 @@
+{
+  "name": "factory-method-example",
+  "version": "1.0.0",
+  "description": "Ví dụ về Factory Method Pattern",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": ["design-pattern", "factory-method"],
+  "author": "",
+  "license": "ISC"
+}

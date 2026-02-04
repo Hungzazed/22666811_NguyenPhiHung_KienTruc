@@ -1,0 +1,12 @@
+{
+  "name": "abstract-factory-example",
+  "version": "1.0.0",
+  "description": "Ví dụ về Abstract Factory Pattern",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": ["design-pattern", "abstract-factory"],
+  "author": "",
+  "license": "ISC"
+}

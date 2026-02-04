@@ -1,0 +1,12 @@
+{
+  "name": "order-management-patterns",
+  "version": "1.0.0",
+  "description": "So sánh State, Strategy, Decorator Pattern trong quản lý đơn hàng",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": ["design-pattern", "state", "strategy", "decorator"],
+  "author": "",
+  "license": "ISC"
+}

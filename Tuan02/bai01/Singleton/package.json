@@ -1,0 +1,12 @@
+{
+  "name": "singleton-example",
+  "version": "1.0.0",
+  "description": "Ví dụ về Singleton Pattern",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": ["design-pattern", "singleton"],
+  "author": "",
+  "license": "ISC"
+}
