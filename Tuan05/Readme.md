@@ -88,3 +88,14 @@ Chia dữ liệu theo chức năng (business logic).
 - Horizontal → scale dữ liệu lớn
 - Vertical → tối ưu hiệu năng truy vấn
 - Functional → tổ chức hệ thống theo domain
+
+# Service-Based Architecture
+
+![Ảnh](MinhChung/Bai3_1.png) 
+![Ảnh](MinhChung/Bai3_2.png) 
+![Ảnh](MinhChung/Bai3_3.png) 
+![Ảnh](MinhChung/Bai3_4.png) 
+![Ảnh](MinhChung/Bai3_5.png) 
+![Ảnh](MinhChung/Bai3_6.png)
+![Ảnh](MinhChung/Bai3_7.png) 
+![Ảnh](MinhChung/Bai3_8.png)  

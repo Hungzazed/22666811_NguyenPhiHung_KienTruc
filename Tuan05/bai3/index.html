@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Demo Service-Based</title>
+    <style>
+        body { font-family: Arial; padding: 40px; }
+        .box { border: 2px solid #333; padding: 20px; border-radius: 10px; }
+        .status { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1>Quản lý Đơn hàng</h1>
+        <button onclick="order()">1. Tạo Đơn hàng (8081)</button>
+        <button onclick="pay()">2. Thanh toán (8082)</button>
+        <button onclick="ship()">3. Giao hàng (8083)</button>
+        
+        <div id="info" style="margin-top:20px;">
+            <p>ID Đơn: <span id="id">-</span></p>
+            <p>Thanh toán: <span id="p-status" class="status">-</span></p>
+            <p>Giao hàng: <span id="s-status" class="status">-</span></p>
+        </div>
+    </div>
+
+    <script>
+        let orderId = null;
+
+        async function order() {
+            const r = await fetch('http://localhost:8081/orders', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ product: "Laptop" })
+            });
+            const d = await r.json();
+            orderId = d.id;
+            update(d);
+        }
+
+        async function pay() {
+            const r = await fetch(`http://localhost:8082/payments/${orderId}`, { method: 'PUT' });
+            update(await r.json());
+        }
+
+        async function ship() {
+            const r = await fetch(`http://localhost:8083/shippings/${orderId}`, { method: 'PUT' });
+            update(await r.json());
+        }
+
+        function update(d) {
+            document.getElementById('id').innerText = d.id;
+            document.getElementById('p-status').innerText = d.paymentStatus;
+            document.getElementById('s-status').innerText = d.shippingStatus;
+        }
+    </script>
+</body>
+</html>

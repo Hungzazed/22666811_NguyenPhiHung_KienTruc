@@ -1,0 +1,22 @@
+{
+  "orders": [
+    {
+      "id": 1,
+      "product": "Laptop",
+      "paymentStatus": "ĐÃ THANH TOÁN",
+      "shippingStatus": "ĐÃ GIAO HÀNG"
+    },
+    {
+      "id": 2,
+      "product": "Laptop",
+      "paymentStatus": "ĐÃ THANH TOÁN",
+      "shippingStatus": "ĐÃ GIAO HÀNG"
+    },
+    {
+      "id": 3,
+      "product": "Laptop",
+      "paymentStatus": "ĐÃ THANH TOÁN",
+      "shippingStatus": "ĐÃ GIAO HÀNG"
+    }
+  ]
+}
