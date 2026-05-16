@@ -1,0 +1,125 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: food-delivery-mysql
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - '3306:3306'
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: food-delivery-rabbitmq
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+
+  user-service:
+    build:
+      context: .
+      dockerfile: backend/user-service/Dockerfile
+    environment:
+      PORT: 8081
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: root
+      DB_NAME: user_service_db
+      JWT_SECRET: food-delivery-secret
+    ports:
+      - '8081:8081'
+    depends_on:
+      - mysql
+
+  food-service:
+    build:
+      context: .
+      dockerfile: backend/food-service/Dockerfile
+    environment:
+      PORT: 8082
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: root
+      DB_NAME: food_service_db
+    ports:
+      - '8082:8082'
+    depends_on:
+      - mysql
+
+  order-service:
+    build:
+      context: .
+      dockerfile: backend/order-service/Dockerfile
+    environment:
+      PORT: 8083
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: root
+      DB_NAME: order_service_db
+      FOOD_SERVICE_URL: http://food-service:8082
+      RABBITMQ_URL: amqp://guest:guest@rabbitmq:5672
+    ports:
+      - '8083:8083'
+    depends_on:
+      - mysql
+      - rabbitmq
+      - food-service
+
+  payment-service:
+    build:
+      context: .
+      dockerfile: backend/payment-service/Dockerfile
+    environment:
+      PORT: 8084
+      RABBITMQ_URL: amqp://guest:guest@rabbitmq:5672
+    ports:
+      - '8084:8084'
+    depends_on:
+      - rabbitmq
+
+  notification-service:
+    build:
+      context: .
+      dockerfile: backend/notification-service/Dockerfile
+    environment:
+      PORT: 8085
+      RABBITMQ_URL: amqp://guest:guest@rabbitmq:5672
+    ports:
+      - '8085:8085'
+    depends_on:
+      - rabbitmq
+
+  api-gateway:
+    build:
+      context: .
+      dockerfile: backend/api-gateway/Dockerfile
+    environment:
+      PORT: 8080
+      USER_SERVICE_URL: http://user-service:8081
+      FOOD_SERVICE_URL: http://food-service:8082
+      ORDER_SERVICE_URL: http://order-service:8083
+    ports:
+      - '8080:8080'
+    depends_on:
+      - user-service
+      - food-service
+      - order-service
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    environment:
+      VITE_API_BASE_URL: http://localhost:8080/api
+    ports:
+      - '3000:3000'
+    depends_on:
+      - api-gateway
+
+volumes:
+  mysql_data:
